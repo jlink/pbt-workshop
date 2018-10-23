@@ -1,4 +1,4 @@
-package pbt.demos;
+package pbt.reverse;
 
 import java.util.*;
 
@@ -6,7 +6,7 @@ import org.assertj.core.api.*;
 
 import net.jqwik.api.*;
 
-class ListReverseProperties {
+class ReverseListProperties {
 
 	private <T> List<T> reverse(List<T> original) {
 		List<T> clone = new ArrayList<>(original);

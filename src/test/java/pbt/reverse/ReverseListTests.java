@@ -1,4 +1,4 @@
-package pbt.demos;
+package pbt.reverse;
 
 import java.util.ArrayList;
 import java.util.*;
@@ -9,7 +9,7 @@ import static java.util.Arrays.*;
 import static org.assertj.core.api.Assertions.*;
 
 @Label("Collections.reverse(List)")
-class ListReverseTests {
+class ReverseListTests {
 
 	@Example
 	@Label("empty list")
