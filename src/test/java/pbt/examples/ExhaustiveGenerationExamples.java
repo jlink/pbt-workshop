@@ -16,10 +16,17 @@ class ExhaustiveGenerationExamples {
 		System.out.println(square);
 	}
 
-	// Will generate 532441 different matrices
-	// @Property(generation = GenerationMode.EXHAUSTIVE)
-	void matrix3times3(@ForAll @Size(3) List< @Size(3) List<@IntRange(min = 1, max = 9) Integer>> matrix) {
-		System.out.println(format(matrix));
+	// Should generate all mini sudokus of size 3x3
+	@Property//(generation = GenerationMode.EXHAUSTIVE)
+	void miniSudokus(@ForAll("sudokus") List<List<Integer>> sudoku) {
+		System.out.println(format(sudoku));
+	}
+
+	@Provide
+	Arbitrary<List<List<Integer>>> sudokus() {
+		return Arbitraries.integers().between(1, 9)//.unique()
+						  .list().ofSize(9)
+						  .map(list -> Arrays.asList(list.subList(0, 3), list.subList(3, 6), list.subList(6, 9)));
 	}
 
 	private String format(List<List<Integer>> matrix) {

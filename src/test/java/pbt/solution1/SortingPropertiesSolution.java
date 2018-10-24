@@ -31,6 +31,11 @@ class SortingPropertiesSolution {
 		return isSorted(sort(unsorted));
 	}
 
+	@Property
+	<T extends Comparable<T>> void aListOfAnyComparableCanBeSorted(@ForAll List<T> aList) {
+		Assertions.assertThat(sort(aList)).isNotNull();
+	}
+
 	private boolean isSorted(List<Integer> sorted) {
 		if (sorted.size() <= 1) return true;
 		return sorted.get(0) <= sorted.get(1)
