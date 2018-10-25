@@ -16,8 +16,7 @@ class ExhaustiveGenerationExamples {
 		System.out.println(square);
 	}
 
-	// Should generate all 362880 mini sudokus of size 3x3
-	// TODO: Currently generates all 387420489 3x3 matrices
+	// Generates all 362880 mini sudokus of size 3x3
 	@Property(generation = GenerationMode.EXHAUSTIVE)
 	void miniSudokus(@ForAll("sudokus") List<List<Integer>> sudoku) {
 		System.out.println(format(sudoku));
@@ -25,8 +24,7 @@ class ExhaustiveGenerationExamples {
 
 	@Provide
 	Arbitrary<List<List<Integer>>> sudokus() {
-		return Arbitraries.integers().between(1, 9)//.unique()
-						  .list().ofSize(9)
+		return Arbitraries.shuffle(1, 2, 3, 4, 5, 6, 7, 8, 9)
 						  .map(list -> Arrays.asList(list.subList(0, 3), list.subList(3, 6), list.subList(6, 9)));
 	}
 
