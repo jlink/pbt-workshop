@@ -9,14 +9,14 @@ import static org.assertj.core.api.Assertions.*;
 
 class GenerationProperties {
 
-	@Property
+	//@Property
 	@Label("German zipcode is valid")
 	void germanZipcodeIsValid(@ForAll String germanZipcode) {
 		assertThat(germanZipcode).hasSize(5);
 		isValidGermanZipCode(germanZipcode);
 	}
 
-	@Property
+	//@Property
 	@Label("String.substring() never throws exception")
 	void stringSubstringWorks(@ForAll Tuple3<String, Integer, Integer> substringParams) {
 		String initialString = substringParams.get1();
@@ -26,7 +26,7 @@ class GenerationProperties {
 		assertThatThrownBy(() -> initialString.substring(beginIndex, endIndex)).doesNotThrowAnyException();
 	}
 
-	@Property
+	//@Property
 	@Label("Address instances are valid")
 	void addressInstancesAreValid(@ForAll Address anAddress) {
 		assertThat(anAddress).is(anyOf(
