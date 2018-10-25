@@ -12,4 +12,9 @@ public class PostOfficeBox extends Address {
 		}
 		this.identifier = identifier.trim();
 	}
+
+	@Override
+	public String toString() {
+		return String.format("POB %s, %s", identifier, super.toString());
+	}
 }

@@ -2,7 +2,7 @@ package pbt.exercise2;
 
 public class StreetAddress extends Address {
 
-	private final String identifier;
+	private final String street;
 	private final String houseNumber;
 
 	public StreetAddress(Country country, String city, String germanZipcode, String street, String houseNumber) {
@@ -11,7 +11,7 @@ public class StreetAddress extends Address {
 		if (street == null || street.trim().isEmpty() || street.trim().length() > 30) {
 			throw new IllegalArgumentException();
 		}
-		this.identifier = street.trim();
+		this.street = street.trim();
 
 		if (!isNullOrValidHouseNumber(houseNumber)) {
 			throw new IllegalArgumentException();
@@ -27,5 +27,11 @@ public class StreetAddress extends Address {
 			return false;
 		}
 		return houseNumber.chars().allMatch(c -> "1234567890/".contains(Character.toString((char) c)));
+	}
+
+	@Override
+	public String toString() {
+		String houseNumberString = houseNumber != null ? " " + houseNumber : "";
+		return String.format("%s%s, %s", street, houseNumberString, super.toString());
 	}
 }
