@@ -26,7 +26,7 @@ test {
 	include '**/*Properties.class'
 	include '**/*Test.class'
 	include '**/*Tests.class'
-	include '**/*Examples.class'
+	// include '**/*Examples.class'
 
 	//testLogging.showStandardStreams = true
 }

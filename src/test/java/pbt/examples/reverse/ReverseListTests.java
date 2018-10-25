@@ -1,4 +1,4 @@
-package pbt.reverse;
+package pbt.examples.reverse;
 
 import java.util.ArrayList;
 import java.util.*;
