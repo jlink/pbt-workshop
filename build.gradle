@@ -28,7 +28,8 @@ test {
 	include '**/*Tests.class'
 	// include '**/*Examples.class'
 
-	//testLogging.showStandardStreams = true
+	// testLogging.events = ["passed", "failed", "skipped"]
+	// testLogging.showStandardStreams = true
 }
 
 dependencies {
