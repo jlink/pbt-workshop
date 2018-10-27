@@ -23,6 +23,7 @@ class AddressProperties {
 
 	private void isValidGermanZipCode(@ForAll String germanZipcode) {
 		assertThat(germanZipcode.chars()).allMatch(c -> c >= '0' && c <= '9');
+		assertThat(germanZipcode).doesNotStartWith("00");
 	}
 
 	private Condition<? super Address> instanceOf(final Class<?> expectedType) {
