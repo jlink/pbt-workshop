@@ -1,7 +1,6 @@
 package pbt.examples;
 
 import net.jqwik.api.*;
-import net.jqwik.api.constraints.*;
 
 class MapAndFilterExamples {
 
