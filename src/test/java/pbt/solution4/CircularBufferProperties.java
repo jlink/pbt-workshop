@@ -27,6 +27,9 @@ class CircularBufferProperties {
 				.withInvariant(sizeMustNotBeNegative)
 				.withInvariant(sizeMustNotExceedCapacity)
 				.run(new Model());
+
+		// Display the actual run sequence
+		// System.out.println(sequence.runSequence());
 	}
 
 	@Provide

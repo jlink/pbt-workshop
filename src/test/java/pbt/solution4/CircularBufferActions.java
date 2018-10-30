@@ -24,6 +24,10 @@ class CircularBufferActions {
 		public String toString() {
 			return buffer.toString();
 		}
+
+		public boolean bufferExists() {
+			return buffer != null;
+		}
 	}
 
 	static Arbitrary<Action<Model>> actions() {
@@ -55,9 +59,14 @@ class CircularBufferActions {
 		}
 
 		@Override
+		public boolean precondition(Model model) {
+			return model.buffer == null;
+		}
+
+		@Override
 		public Model run(Model model) {
 			model.initialize(capacity);
-			assertThat(model.buffer.size()).isEqualTo(0);
+			assertThat(model.bufferExists()).isTrue();
 			return model;
 		}
 
@@ -78,7 +87,7 @@ class CircularBufferActions {
 
 		@Override
 		public boolean precondition(Model model) {
-			return model.buffer != null && model.contents.size() < model.capacity;
+			return model.bufferExists() && model.contents.size() < model.capacity;
 		}
 
 		@Override
@@ -99,7 +108,7 @@ class CircularBufferActions {
 
 		@Override
 		public boolean precondition(Model model) {
-			return model.buffer != null && !model.contents.isEmpty();
+			return model.bufferExists() && !model.contents.isEmpty();
 		}
 
 		@Override
@@ -120,7 +129,7 @@ class CircularBufferActions {
 
 		@Override
 		public boolean precondition(Model model) {
-			return model.buffer != null;
+			return model.bufferExists();
 		}
 
 		@Override
