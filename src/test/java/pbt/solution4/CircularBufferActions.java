@@ -60,7 +60,10 @@ class CircularBufferActions {
 
 		@Override
 		public boolean precondition(Model model) {
-			return model.buffer == null;
+			// Since there is no interaction between buffers
+			// creating a new buffer in between will not reveal
+			// new problems
+			return !model.bufferExists();
 		}
 
 		@Override
