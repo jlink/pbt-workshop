@@ -57,6 +57,7 @@ class CircularBufferActions {
 		@Override
 		public Model run(Model model) {
 			model.initialize(capacity);
+			assertThat(model.buffer.size()).isEqualTo(0);
 			return model;
 		}
 
