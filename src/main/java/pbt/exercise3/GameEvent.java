@@ -25,6 +25,10 @@ public class GameEvent {
 		return type;
 	}
 
+	public GameTime gameTime() {
+		return gameTime;
+	}
+
 	public String player() {
 		return player;
 	}

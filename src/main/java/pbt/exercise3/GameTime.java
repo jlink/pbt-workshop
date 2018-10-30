@@ -1,5 +1,7 @@
 package pbt.exercise3;
 
+import java.time.*;
+
 public class GameTime implements Comparable<GameTime> {
 
 	private final int quarter;
@@ -42,21 +44,13 @@ public class GameTime implements Comparable<GameTime> {
 		return second;
 	}
 
+	public Duration minuteInGame() {
+		return Duration.ofMinutes(minute() + (quarter() - 1) * 10).plusSeconds(second());
+	}
+
 	@Override
 	public int compareTo(GameTime other) {
-		if (quarter < other.quarter) {
-			return -1;
-		} else if (quarter > other.quarter) {
-			return 1;
-		} else if (minute < other.minute) {
-			return -1;
-		} else if (minute > other.minute) {
-			return 1;
-		} else if (second < other.second) {
-			return -1;
-		} else if (second > other.second) {
-			return 1;
-		}
-		return 0;
+		return minuteInGame().compareTo(other.minuteInGame());
 	}
+
 }

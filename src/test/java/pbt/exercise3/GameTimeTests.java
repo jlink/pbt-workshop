@@ -1,11 +1,19 @@
 package pbt.exercise3;
 
+import java.time.*;
+
 import net.jqwik.api.*;
 
 import static org.assertj.core.api.Assertions.*;
 
 @Label("A game time")
 class GameTimeTests {
+
+	@Example
+	void can_calculate_minute_in_game() {
+		assertThat(GameTime.at(1, 1, 1).minuteInGame()).isEqualTo(Duration.ofMinutes(1).plusSeconds(1));
+		assertThat(GameTime.at(4, 0, 59).minuteInGame()).isEqualTo(Duration.ofMinutes(30).plusSeconds(59));
+	}
 
 	@Group
 	class can_be_created {
@@ -87,4 +95,5 @@ class GameTimeTests {
 		}
 
 	}
+
 }
