@@ -2,6 +2,8 @@ package pbt.solution4;
 
 import java.util.*;
 
+import pbt.exercise4.*;
+
 import net.jqwik.api.*;
 import net.jqwik.api.stateful.*;
 

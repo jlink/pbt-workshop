@@ -1,18 +1,18 @@
-package pbt.solution4;
+package pbt.exercise4;
 
-import net.jqwik.support.*;
+import java.util.*;
 
 /**
  * Example was borrowed from
  * https://github.com/owickstrom/hedgehog-inline-java-testing/blob/master/src/main/java/example/CircularBuffer.java
  */
-public class CircularBuffer_BugFixed<T> {
+public class CircularBuffer<T> {
 	private final T[] buf;
 	private int in;
 	private int out;
 
-	public CircularBuffer_BugFixed(int capacity) {
-		this.buf = (T[]) new Object[capacity + 1];
+	public CircularBuffer(int capacity) {
+		this.buf = (T[]) new Object[capacity];
 	}
 
 	public synchronized void put(T x) {
@@ -33,7 +33,7 @@ public class CircularBuffer_BugFixed<T> {
 
 	@Override
 	public String toString() {
-		return String.format("CircularBuffer(%s)", JqwikStringSupport.displayString(buf));
+		return String.format("CircularBuffer(%s)", Arrays.toString(buf));
 	}
 }
 
