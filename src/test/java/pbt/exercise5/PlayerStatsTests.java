@@ -1,11 +1,11 @@
-package pbt.exercise3;
+package pbt.exercise5;
 
 import java.util.*;
 
 import net.jqwik.api.*;
 
 import static org.assertj.core.api.Assertions.*;
-import static pbt.exercise3.GameEvent.Type.*;
+import static pbt.exercise5.GameEvent.Type.*;
 
 @Label("Player Statistics")
 class PlayerStatsTests {

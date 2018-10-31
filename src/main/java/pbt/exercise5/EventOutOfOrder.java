@@ -1,4 +1,4 @@
-package pbt.exercise3;
+package pbt.exercise5;
 
 public class EventOutOfOrder extends RuntimeException {
 

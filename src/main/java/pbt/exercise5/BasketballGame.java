@@ -1,4 +1,4 @@
-package pbt.exercise3;
+package pbt.exercise5;
 
 import java.util.*;
 import java.util.stream.*;
