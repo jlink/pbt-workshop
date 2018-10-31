@@ -55,7 +55,10 @@ class AddressPropertiesSolution {
 	}
 
 	private Arbitrary<String> germanZipCode() {
-		return Arbitraries.strings().withCharRange('0', '9').ofLength(5).filter(z -> !z.matches("00\\d+"));
+		return Arbitraries.strings()
+						  .withCharRange('0', '9')
+						  .ofLength(5)
+						  .filter(z -> !z.startsWith("00"));
 	}
 
 	private void isValidGermanZipCode(@ForAll String germanZipcode) {
