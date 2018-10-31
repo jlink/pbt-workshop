@@ -7,11 +7,19 @@ public class BasketballGame {
 	private final List<String> players;
 	private final List<GameEvent> events = new ArrayList<>();
 
-	public BasketballGame(List<String> players) {
+	public BasketballGame(Set<String> players) {
 		if (players.size() > 12) {
 			throw new IllegalArgumentException("Not more than 12 players allowed");
 		}
-		this.players = players;
+		ArrayList<String> sortedPlayerList = new ArrayList<>(players);
+		sortedPlayerList.sort(this::comparePlayerNumbers);
+		this.players = sortedPlayerList;
+	}
+
+	private int comparePlayerNumbers(String number, String otherNumber) {
+		int numberInt = Integer.parseInt(number);
+		int otherNumberInt = Integer.parseInt(otherNumber);
+		return Integer.compare(numberInt, otherNumberInt);
 	}
 
 	public List<String> players() {

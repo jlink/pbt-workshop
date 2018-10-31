@@ -10,7 +10,7 @@ import static pbt.exercise3.GameEvent.Type.*;
 @Label("Player Statistics")
 class PlayerStatsTests {
 
-	private List<String> players = Arrays.asList("0", "1", "2", "3", "4", "5");
+	private Set<String> players = new HashSet<>(Arrays.asList("0", "1", "2", "3", "4", "5"));
 	private BasketballGame game = new BasketballGame(players);
 
 	private static final String PLAYER_0 = "0";
