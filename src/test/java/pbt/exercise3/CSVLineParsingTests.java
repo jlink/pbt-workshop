@@ -32,4 +32,10 @@ class CSVLineParsingTests {
 		CSVLine line = CSVLineParser.parse("\"value1,value2\"");
 		assertThat(line).containsExactly("value1,value2");
 	}
+
+	@Example
+	void doubleQuote_is_added_as_quote_char_to_field() {
+		CSVLine line = CSVLineParser.parse("\"before\"\"after\",value2");
+		assertThat(line).containsExactly("before\"after", "value2");
+	}
 }
