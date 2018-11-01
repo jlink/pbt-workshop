@@ -38,4 +38,10 @@ class CSVLineParsingTests {
 		CSVLine line = CSVLineParser.parse("\"before\"\"after\",value2");
 		assertThat(line).containsExactly("before\"after", "value2");
 	}
+
+	@Example
+	void quotingOnlyWorksAtBordersOfField() {
+		CSVLine line = CSVLineParser.parse("before\"after,value2");
+		assertThat(line).containsExactly("before\"after", "value2");
+	}
 }

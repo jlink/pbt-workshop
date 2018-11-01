@@ -3,18 +3,22 @@ package pbt.exercise3;
 import java.util.*;
 
 public class CSVLine implements Iterable<String> {
-	private final List<String> values;
+	private final List<String> fields;
 
-	public CSVLine(List<String> values) {
-		this.values = values;
+	public CSVLine(List<String> fields) {
+		this.fields = fields;
 	}
 
 	public int size() {
-		return values.size();
+		return fields.size();
 	}
 
 	@Override
 	public Iterator<String> iterator() {
-		return values.iterator();
+		return fields.iterator();
+	}
+
+	public List<String> fields() {
+		return Collections.unmodifiableList(fields);
 	}
 }

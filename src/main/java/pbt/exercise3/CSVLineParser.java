@@ -21,11 +21,19 @@ public class CSVLineParser {
 			char c = charArray[i];
 			switch (c) {
 				case QUOTE:
-					if (nextCharIsAlsoQuote(charArray, i)) {
-						current += QUOTE;
-						i++;
+					if (current.isEmpty()) {
+						inQuote = true;
+						break;
+					}
+					if (inQuote) {
+						if (nextCharIsAlsoQuote(charArray, i)) {
+							current += QUOTE;
+							i++;
+						} else {
+							inQuote = !inQuote;
+						}
 					} else {
-						inQuote = !inQuote;
+						current += QUOTE;
 					}
 					break;
 				case SEPARATOR:
