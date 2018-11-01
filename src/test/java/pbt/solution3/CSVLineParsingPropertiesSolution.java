@@ -1,5 +1,8 @@
 package pbt.solution3;
 
+import java.util.*;
+import java.util.stream.*;
+
 import pbt.exercise3.*;
 
 import net.jqwik.api.*;
@@ -32,6 +35,23 @@ class CSVLineParsingPropertiesSolution {
 		}
 	}
 
+	@Group
+	class line_with_separators {
+
+		@Property
+		@Report(Reporting.GENERATED)
+		void quoted_fields(@ForAll("unquotedFields") List<String> fields) {
+			// Mask bug with empty quoted string
+			Assume.that(fields.stream().noneMatch(String::isEmpty));
+
+			String parseLine = fields.stream().map(f -> quote(f)).collect(Collectors.joining());
+			CSVLine line = CSVLineParser.parse(parseLine);
+			assertThat(line).isEqualTo(fields);
+		}
+
+
+	}
+
 	@Provide
 	Arbitrary<String> unquotedFieldWithoutSeparator() {
 		return fieldValue()
@@ -41,7 +61,13 @@ class CSVLineParsingPropertiesSolution {
 
 	@Provide
 	Arbitrary<String> fieldValue() {
-		return Arbitraries.strings().ascii().map(this::removeNewLines);
+		return Arbitraries.strings().ascii().ofMaxLength(500).map(this::removeNewLines);
+	}
+
+
+	@Provide
+	Arbitrary<List<String>> unquotedFields() {
+		return fieldValue().list().ofMinSize(2).ofMaxSize(100);
 	}
 
 	private String quote(String field) {
