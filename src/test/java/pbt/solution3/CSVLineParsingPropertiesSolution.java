@@ -53,14 +53,14 @@ class CSVLineParsingPropertiesSolution {
 
 		@Property
 		void unquoted_fields(@ForAll("fieldsWithoutSeparatorAndLeadingQuote") List<String> fields) {
-			String parseLine = fields.stream().collect(Collectors.joining(","));
+			String parseLine = String.join(",", fields);
 			CSVLine line = CSVLineParser.parse(parseLine);
 			assertThat(line.fields()).isEqualTo(fields);
 		}
 
 		@Property
 		void unquoted_fields_are_trimmed(@ForAll("fieldsWithoutSeparatorAndLeadingQuote") List<String> fields) {
-			String parseLine = fields.stream().collect(Collectors.joining(" , "));
+			String parseLine = String.join(" , ", fields);
 			CSVLine line = CSVLineParser.parse(parseLine);
 			assertThat(line.fields()).isEqualTo(fields);
 		}
