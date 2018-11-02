@@ -39,6 +39,10 @@ dependencies {
 
 	// For Jupiter tests and also necessary to work around some IntelliJ bugs
 	testCompile("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+
+	// For oracle tests in solution 3
+	testCompile("org.apache.commons:commons-csv:1.6");
+
 }
 
 wrapper {

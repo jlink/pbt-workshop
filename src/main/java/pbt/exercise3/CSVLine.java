@@ -21,4 +21,9 @@ public class CSVLine implements Iterable<String> {
 	public List<String> fields() {
 		return Collections.unmodifiableList(fields);
 	}
+
+	@Override
+	public String toString() {
+		return String.format("CSVLine%s", fields.toString());
+	}
 }

@@ -1,12 +1,17 @@
 package pbt.solution3;
 
+import java.io.*;
 import java.util.*;
 import java.util.stream.*;
 
+import org.apache.commons.csv.*;
 import pbt.exercise3.*;
 
 import net.jqwik.api.*;
+import net.jqwik.api.arbitraries.*;
+import net.jqwik.api.constraints.*;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.*;
 
 @Group
@@ -23,11 +28,17 @@ class CSVLineParsingPropertiesSolution {
 
 		@Property
 		void quoted_field(@ForAll("fieldValue") String fieldValue) {
-			// Mask bug with empty quoted string
-			Assume.that(!fieldValue.isEmpty());
-
 			// Mask bug with quote as first char
 			Assume.that(!fieldValue.startsWith("\""));
+
+			String quotedField = quote(fieldValue);
+			CSVLine line = CSVLineParser.parse(quotedField);
+			assertThat(line).containsOnly(fieldValue);
+		}
+
+		@Example
+		void quoted_field_that_starts_with_quote() {
+			String fieldValue = "\"value";
 
 			String quotedField = quote(fieldValue);
 			CSVLine line = CSVLineParser.parse(quotedField);
@@ -46,7 +57,15 @@ class CSVLineParsingPropertiesSolution {
 			// Mask bug with quote as first char in quoted string
 			Assume.that(fields.stream().noneMatch(s -> s.startsWith("\"")));
 
-			String parseLine = fields.stream().map(f -> quote(f)).collect(Collectors.joining(","));
+			String parseLine = csvLineFromFields(fields);
+			CSVLine line = CSVLineParser.parse(parseLine);
+			assertThat(line.fields()).isEqualTo(fields);
+		}
+
+		@Example
+		void empty_quoted_field_with_follower() {
+			List<String> fields = asList("", "value");
+			String parseLine = csvLineFromFields(fields);
 			CSVLine line = CSVLineParser.parse(parseLine);
 			assertThat(line.fields()).isEqualTo(fields);
 		}
@@ -67,6 +86,59 @@ class CSVLineParsingPropertiesSolution {
 
 	}
 
+	@Group
+	class Patterns {
+
+		// Fuzzying
+		@Property
+		boolean do_not_explode(@ForAll("asciiWithoutNewLines") @StringLength(max = 1024) String line) {
+			return CSVLineParser.parse(line).size() > 0;
+		}
+
+		// Commutativity
+		@Property
+		void order_of_fields_should_not_change_number_of_fields(@ForAll("unquotedFields") List<String> fields, @ForAll Random random) {
+			String parseLine = csvLineFromFields(fields);
+
+			ArrayList<String> shuffledFields = new ArrayList<>(fields);
+			Collections.shuffle(shuffledFields, random);
+			String shuffledParseLine = csvLineFromFields(shuffledFields);
+
+			CSVLine csvLine = CSVLineParser.parse(parseLine);
+			CSVLine shuffledCsvLine = CSVLineParser.parse(shuffledParseLine);
+			assertThat(csvLine.size()).isEqualTo(shuffledCsvLine.size());
+		}
+
+		// Test oracle
+		@Property(shrinking = ShrinkingMode.BOUNDED)
+		void produces_same_fields_as_apache_commons_csv(@ForAll("unquotedFields") List<String> fields) throws IOException {
+			// Mask bug with empty quoted string
+			Assume.that(fields.stream().noneMatch(String::isEmpty));
+
+			// Mask bug with quote as first char in quoted string
+			Assume.that(fields.stream().noneMatch(s -> s.startsWith("\"")));
+
+			String parseLine = csvLineFromFields(fields);
+
+			CSVLine csvLine = CSVLineParser.parse(parseLine);
+			CSVRecord commonsLine = parseWithApacheCommons(parseLine);
+
+			assertThat(commonsLine).containsExactlyElementsOf(csvLine);
+		}
+
+		private CSVRecord parseWithApacheCommons(String parseLine) throws IOException {
+			CSVParser commonsParser = CSVFormat.newFormat(',').withQuote('"').parse(new StringReader(parseLine));
+			return commonsParser.iterator().next();
+		}
+
+	}
+
+	@Provide
+	StringArbitrary asciiWithoutNewLines() {
+		return Arbitraries.strings().ascii();
+	}
+
+
 	@Provide
 	Arbitrary<String> unquotedFieldWithoutSeparator() {
 		return fieldValue()
@@ -76,9 +148,8 @@ class CSVLineParsingPropertiesSolution {
 
 	@Provide
 	Arbitrary<String> fieldValue() {
-		return Arbitraries.strings().ascii().ofMaxLength(500).map(this::removeNewLines);
+		return asciiWithoutNewLines().ofMaxLength(500).map(this::removeNewLines);
 	}
-
 
 	@Provide
 	Arbitrary<List<String>> fieldsWithoutSeparatorAndLeadingQuote() {
@@ -91,6 +162,10 @@ class CSVLineParsingPropertiesSolution {
 	@Provide
 	Arbitrary<List<String>> unquotedFields() {
 		return fieldValue().list().ofMinSize(2).ofMaxSize(100);
+	}
+
+	private String csvLineFromFields(List<String> fields) {
+		return fields.stream().map(f -> quote(f)).collect(Collectors.joining(","));
 	}
 
 	private String quote(String field) {
