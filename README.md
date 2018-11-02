@@ -15,3 +15,16 @@ Exercises and Solutions for Workshop on Property-based Testing with Java
 ```
 gradlew.bat test
 ```
+
+## Run test always and with reports
+
+```
+./gradlew clean test --info
+```
+
+## Run specific test container
+
+```
+./gradlew clean test --info --tests *.CircularBufferProperties
+```
+

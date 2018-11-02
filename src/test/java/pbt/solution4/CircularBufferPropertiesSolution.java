@@ -7,7 +7,7 @@ import net.jqwik.api.stateful.*;
 
 import static org.assertj.core.api.Assertions.*;
 
-class CircularBufferProperties {
+class CircularBufferPropertiesSolution {
 
 	@Property
 	//@Report(Reporting.GENERATED)
