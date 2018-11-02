@@ -11,7 +11,7 @@ import net.jqwik.api.*;
 import net.jqwik.api.arbitraries.*;
 import net.jqwik.api.constraints.*;
 
-import static java.util.Arrays.asList;
+import static java.util.Arrays.*;
 import static org.assertj.core.api.Assertions.*;
 
 @Group
@@ -65,6 +65,14 @@ class CSVLineParsingPropertiesSolution {
 		@Example
 		void empty_quoted_field_with_follower() {
 			List<String> fields = asList("", "value");
+			String parseLine = csvLineFromFields(fields);
+			CSVLine line = CSVLineParser.parse(parseLine);
+			assertThat(line.fields()).isEqualTo(fields);
+		}
+
+		@Example
+		void quote_in_second_field() {
+			List<String> fields = asList("\00", "\"");
 			String parseLine = csvLineFromFields(fields);
 			CSVLine line = CSVLineParser.parse(parseLine);
 			assertThat(line.fields()).isEqualTo(fields);
