@@ -33,9 +33,10 @@ test {
 }
 
 dependencies {
-	testCompile("org.mockito:mockito-core:2.23.0")
-	testCompile("org.assertj:assertj-core:3.11.1")
 	testCompile "net.jqwik:jqwik:${jqwikVersion}"
+
+	// Fluent assertions library
+	testCompile("org.assertj:assertj-core:3.11.1")
 
 	// For Jupiter tests and also necessary to work around some IntelliJ bugs
 	testCompile("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
