@@ -17,6 +17,15 @@ import static org.assertj.core.api.Assertions.*;
 @Group
 class CSVLineParsingPropertiesSolution {
 
+	private final String ALLOWED_CHARACTERS =
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+					"abcdefghijklmnopqrstuvwxyz" +
+					"0123456789" +
+					" !\"#$%&'()*+,-./" +
+					":;<=>?@" +
+					"[\\]^_`" +
+					"{|}~";
+
 	@Group
 	class line_without_separator_returns_single_field {
 
@@ -63,19 +72,20 @@ class CSVLineParsingPropertiesSolution {
 		}
 
 		@Example
+			// Extracted after finding bug with property
 		void empty_quoted_field_with_follower() {
 			List<String> fields = asList("", "value");
 			String parseLine = csvLineFromFields(fields);
 			CSVLine line = CSVLineParser.parse(parseLine);
-			assertThat(line.fields()).isEqualTo(fields);
+			assertThat(line.fields()).containsExactly("", "value");
 		}
 
 		@Example
 		void quote_in_second_field() {
-			List<String> fields = asList("\00", "\"");
+			List<String> fields = asList("A", "\"");
 			String parseLine = csvLineFromFields(fields);
 			CSVLine line = CSVLineParser.parse(parseLine);
-			assertThat(line.fields()).isEqualTo(fields);
+			assertThat(line.fields()).containsExactly("A", "\"");
 		}
 
 		@Property
@@ -99,7 +109,7 @@ class CSVLineParsingPropertiesSolution {
 
 		// Fuzzying
 		@Property
-		boolean do_not_explode(@ForAll("asciiWithoutNewLines") @StringLength(max = 1024) String line) {
+		boolean do_not_explode(@ForAll("csvValueStrings") @StringLength(max = 1024) String line) {
 			return CSVLineParser.parse(line).size() > 0;
 		}
 
@@ -142,8 +152,8 @@ class CSVLineParsingPropertiesSolution {
 	}
 
 	@Provide
-	StringArbitrary asciiWithoutNewLines() {
-		return Arbitraries.strings().ascii();
+	StringArbitrary csvValueStrings() {
+		return Arbitraries.strings().withChars(ALLOWED_CHARACTERS.toCharArray());
 	}
 
 
@@ -156,7 +166,7 @@ class CSVLineParsingPropertiesSolution {
 
 	@Provide
 	Arbitrary<String> fieldValue() {
-		return asciiWithoutNewLines().ofMaxLength(500).map(this::removeNewLines);
+		return csvValueStrings().ofMaxLength(500).map(this::removeNewLines);
 	}
 
 	@Provide
