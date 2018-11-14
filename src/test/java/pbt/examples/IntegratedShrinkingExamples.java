@@ -4,7 +4,7 @@ import net.jqwik.api.*;
 
 class IntegratedShrinkingExamples {
 
-	@Property(shrinking = ShrinkingMode.OFF)
+	@Property
 	@Report(Reporting.FALSIFIED)
 	boolean shrinkingCanBeComplicated(
 			@ForAll("first") String first,
