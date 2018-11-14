@@ -7,10 +7,10 @@ import static org.assertj.core.api.Assertions.*;
 class ZipCodeProperties {
 
 	//@Property
-	@Label("German zipcode is valid")
-	void germanZipcodeIsValid(@ForAll String germanZipcode) {
-		assertThat(germanZipcode).hasSize(5);
-		isValidGermanZipCode(germanZipcode);
+	@Label("German zip code is valid")
+	void germanZipCodeIsValid(@ForAll String germanZipCode) {
+		assertThat(germanZipCode).hasSize(5);
+		isValidGermanZipCode(germanZipCode);
 	}
 
 	private void isValidGermanZipCode(@ForAll String germanZipcode) {
