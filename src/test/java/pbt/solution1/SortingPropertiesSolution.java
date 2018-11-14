@@ -31,15 +31,15 @@ class SortingPropertiesSolution {
 		return isSorted(sort(unsorted));
 	}
 
+	private boolean isSorted(List<Integer> sorted) {
+		if (sorted.size() < 2) return true;
+		return sorted.get(0) <= sorted.get(1)
+				&& isSorted(sorted.subList(1, sorted.size()));
+	}
+
 	@Property
 	<T extends Comparable<T>> void aListOfAnyComparableCanBeSorted(@ForAll List<T> aList) {
 		Assertions.assertThat(sort(aList)).isNotNull();
-	}
-
-	private boolean isSorted(List<Integer> sorted) {
-		if (sorted.size() <= 1) return true;
-		return sorted.get(0) <= sorted.get(1)
-					   && isSorted(sorted.subList(1, sorted.size()));
 	}
 
 	private <T extends Comparable<? super T>> List<T> sort(List<T> original) {
