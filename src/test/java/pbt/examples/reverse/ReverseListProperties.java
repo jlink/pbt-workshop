@@ -17,7 +17,7 @@ class ReverseListProperties {
 	}
 
 	@Property
-	boolean sizeRemainsTheSame(@ForAll List<Integer> original) {
+	boolean theSizeRemainsTheSame(@ForAll List<Integer> original) {
 		List<Integer> reversed = reverse(original);
 		return original.size() == reversed.size();
 	}
