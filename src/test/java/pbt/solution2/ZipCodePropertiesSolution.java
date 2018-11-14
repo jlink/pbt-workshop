@@ -5,12 +5,12 @@ import net.jqwik.api.constraints.*;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Label("German zipcode")
+@Label("German zip code")
 class ZipCodePropertiesSolution {
 
 	@Property
 	@Label("is valid")
-	void germanZipcodeIsValid(@ForAll @StringLength(5) @CharRange(from = '0', to = '9') String germanZipcode) {
+	void germanZipCodeIsValid(@ForAll @StringLength(5) @CharRange(from = '0', to = '9') String germanZipcode) {
 		Assume.that(!germanZipcode.matches("00\\d+"));
 		assertThat(germanZipcode).hasSize(5);
 		isValidGermanZipCode(germanZipcode);
