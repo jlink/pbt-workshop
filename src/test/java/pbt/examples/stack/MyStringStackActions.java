@@ -1,5 +1,7 @@
 package pbt.examples.stack;
 
+import java.io.*;
+
 import org.assertj.core.api.*;
 
 import net.jqwik.api.*;
@@ -24,7 +26,7 @@ class MyStringStackActions {
 		return Arbitraries.constant(new PopAction());
 	}
 
-	private static class PushAction implements Action<MyStringStack> {
+	private static class PushAction implements Action<MyStringStack>, Serializable {
 
 		private final String element;
 
@@ -48,7 +50,7 @@ class MyStringStackActions {
 		}
 	}
 
-	private static class ClearAction implements Action<MyStringStack> {
+	private static class ClearAction implements Action<MyStringStack>, Serializable {
 
 		@Override
 		public MyStringStack run(MyStringStack model) {
@@ -63,7 +65,7 @@ class MyStringStackActions {
 		}
 	}
 
-	private static class PopAction implements Action<MyStringStack> {
+	private static class PopAction implements Action<MyStringStack>, Serializable {
 
 		@Override
 		public boolean precondition(MyStringStack model) {
