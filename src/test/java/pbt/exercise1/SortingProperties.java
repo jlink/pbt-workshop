@@ -9,7 +9,7 @@ import net.jqwik.api.*;
 class SortingProperties {
 
 	@Property
-	void aListOfIntegersCanBeSorted(@ForAll List<Integer> aList) {
+	void anyListOfIntegersCanBeSorted(@ForAll List<Integer> aList) {
 		Assertions.assertThat(sort(aList)).isNotNull();
 	}
 

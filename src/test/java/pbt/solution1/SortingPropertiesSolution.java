@@ -38,7 +38,7 @@ class SortingPropertiesSolution {
 	}
 
 	@Property
-	<T extends Comparable<T>> void aListOfAnyComparableCanBeSorted(@ForAll List<T> aList) {
+	<T extends Comparable<T>> void anyListOfComparablesCanBeSorted(@ForAll List<T> aList) {
 		Assertions.assertThat(sort(aList)).isNotNull();
 	}
 
