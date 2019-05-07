@@ -1,4 +1,4 @@
-package pbt.primes.solution;
+package pbt.solution_primes;
 
 import java.util.*;
 
@@ -48,10 +48,6 @@ class PrimesSolution {
 		assertThat(factorize(product)).isEqualTo(primes);
 	}
 
-	private Integer product(@ForAll("listOfPrimes") List<Integer> primes) {
-		return primes.stream().reduce(1, (i1, i2) -> i1 * i2);
-	}
-
 	@Property
 	boolean any_number_can_be_factorized(
 			@ForAll @IntRange(min = 2, max = 100_000_000) int number
@@ -72,15 +68,21 @@ class PrimesSolution {
 		return Arbitraries.of(2, 3, 5, 7, 11, 13, 17, 19, 23, 29);
 	}
 
+	private int product(List<Integer> primes) {
+		return primes.stream().reduce(1, (i1, i2) -> i1 * i2);
+	}
+
 	static List<Integer> factorize(int number) {
-		int candidate = 2;
 		ArrayList<Integer> factors = new ArrayList<>();
 
+		int candidate = 2;
 		while (number >= candidate) {
 			while (number % candidate != 0) {
-				candidate++;
-				if (candidate * candidate > number)
+				if (candidate * candidate > number) {
 					candidate = number;
+				} else {
+					candidate++;
+				}
 			}
 			factors.add(candidate);
 			number /= candidate;
