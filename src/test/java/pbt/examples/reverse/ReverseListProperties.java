@@ -30,7 +30,7 @@ class ReverseListProperties {
 
 	@Property
 	boolean reverseMakesFirstElementLast(@ForAll List<Integer> original) {
-		Assume.that(original.size() > 2);
+		Assume.that(original.size() >= 1);
 		Integer lastReversed = reverse(original).get(original.size() - 1);
 		return original.get(0).equals(lastReversed);
 	}
