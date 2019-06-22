@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.*;
 @Label("German zip code")
 class ZipCodePropertiesSolution {
 
-	@Property
+	@Property(generation = GenerationMode.EXHAUSTIVE)
 	@Label("is valid")
 	void germanZipCodeIsValid(@ForAll @StringLength(5) @CharRange(from = '0', to = '9') String germanZipCode) {
 		Assume.that(!germanZipCode.matches("00\\d+"));
