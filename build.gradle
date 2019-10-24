@@ -3,9 +3,11 @@ repositories {
 	maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 
-ext.junitPlatformVersion = '1.5.1'
-ext.junitJupiterVersion = '5.5.1'
-ext.jqwikVersion = '1.2.0'
+ext {
+	junitJupiterVersion = '5.5.2'
+	jqwikVersion = '1.2.1'
+	assertJVersion = '3.13.2'
+}
 
 apply plugin: 'java'
 
@@ -28,20 +30,20 @@ test {
 }
 
 dependencies {
-	testCompile "net.jqwik:jqwik:${jqwikVersion}"
+	testImplementation("net.jqwik:jqwik:${jqwikVersion}")
 
 	// Fluent assertions library
-	testCompile("org.assertj:assertj-core:3.11.1")
+	testImplementation("org.assertj:assertj-core:${assertJVersion}")
 
 	// For Jupiter tests and also necessary to work around some IntelliJ bugs
-	testCompile("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+	testImplementation("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
 
 	// For oracle tests in solution 3
-	testCompile("org.apache.commons:commons-csv:1.6");
+	testImplementation("org.apache.commons:commons-csv:1.6");
 
 }
 
 wrapper {
 	description = 'Generates gradlew[.bat] scripts'
-	gradleVersion = '5.4.1'
+	gradleVersion = '5.6.2'
 }
