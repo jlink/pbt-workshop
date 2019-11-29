@@ -49,11 +49,11 @@ class PrimesSolution {
 	}
 
 	@Property
-	boolean any_number_can_be_factorized(
-			@ForAll @IntRange(min = 2, max = 100_000_000) int number
+	boolean any_number_above_1_can_be_factorized(
+			@ForAll @IntRange(min = 2) int number
 	) {
 		List<Integer> factors = factorize(number);
-		Integer product = product(factors);
+		int product = product(factors);
 
 		return product == number;
 	}
@@ -78,7 +78,7 @@ class PrimesSolution {
 		int candidate = 2;
 		while (number >= candidate) {
 			while (number % candidate != 0) {
-				if (candidate * candidate > number) {
+				if (Math.sqrt(number) < candidate) {
 					candidate = number;
 				} else {
 					candidate++;
