@@ -68,6 +68,15 @@ class PrimesSolution {
 		return Arbitraries.of(2, 3, 5, 7, 11, 13, 17, 19, 23, 29);
 	}
 
+	@Provide
+	Arbitrary<Integer> primesNaive() {
+		return Arbitraries.integers().between(2, Integer.MAX_VALUE).filter(i -> isPrime(i));
+	}
+
+	private boolean isPrime(int number) {
+		return false;
+	}
+
 	private int product(List<Integer> primes) {
 		return primes.stream().reduce(1, (i1, i2) -> i1 * i2);
 	}
