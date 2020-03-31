@@ -1,3 +1,7 @@
+plugins {
+	id 'java'
+}
+
 repositories {
 	mavenCentral()
 	maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
@@ -8,8 +12,6 @@ ext {
 	jqwikVersion = '1.2.6'
 	assertJVersion = '3.15.0'
 }
-
-apply plugin: 'java'
 
 compileTestJava {
 	sourceCompatibility = 1.8
