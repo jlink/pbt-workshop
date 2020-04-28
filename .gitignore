@@ -22,6 +22,9 @@ bin/
 .idea/
 out/
 
+# VS Code
+.vscode/
+
 # Misc
 *.log
 
