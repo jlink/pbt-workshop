@@ -26,6 +26,18 @@ class SortingPropertiesSolution {
 		Assertions.assertThat(sorted).isEqualTo(sortedTwice);
 	}
 
+	/**
+	 * A simple metamorphic property: Given the result of sorting one list,
+	 * sorting a shuffled original list has the same result.
+	 */
+	@Property
+	void shuffledListHasSameSortedResult(@ForAll List<Integer> unsorted, @ForAll Random random) {
+		List<Integer> sorted = sort(unsorted);
+		Collections.shuffle(unsorted, random);
+		List<Integer> sortedShuffled = sort(unsorted);
+		Assertions.assertThat(sorted).isEqualTo(sortedShuffled);
+	}
+
 	@Property
 	boolean sortedListIsReallySorted(@ForAll List<Integer> unsorted) {
 		return isSorted(sort(unsorted));
