@@ -18,7 +18,7 @@ class Demo1 {
 
 	@Property
 	boolean sumOfTwoIntegersAlwaysGreaterThanEach(
-			@ForAll int positive1, //
+			@ForAll int positive1,
 			@ForAll int positive2
 	) {
 		int sum = positive1 + positive2;
