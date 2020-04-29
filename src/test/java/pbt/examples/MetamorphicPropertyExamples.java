@@ -9,8 +9,8 @@ class MetamorphicPropertyExamples {
 
 	@Property
 	boolean summingAdditionalNumber(
-			@ForAll @Size(max = 100) List<@Positive Integer> addends,
-			@ForAll @Positive int x
+			@ForAll @Size(max = 100) List<Integer> addends,
+			@ForAll int x
 	) {
 		long sum = sumUp(addends);
 		addends.add(x);
