@@ -41,11 +41,10 @@ dependencies {
 	testImplementation("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
 
 	// For oracle tests in solution 3
-	testImplementation("org.apache.commons:commons-csv:1.6");
+	testImplementation("org.apache.commons:commons-csv:1.6")
 
 }
 
 wrapper {
-	description = 'Generates gradlew[.bat] scripts'
-	gradleVersion = '6.4.1'
+	gradleVersion = '6.5.1'
 }
