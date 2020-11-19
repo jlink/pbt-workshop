@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.*;
 
 class PrimesProperties {
 
-	@Property
+	@Example
 	void just2() {
 		List<Integer> factors = Primes.factorize(2);
 		assertThat(factors).containsExactly(2);
