@@ -40,13 +40,7 @@ class ReverseListProperties {
 		return reverse(reverse(original)).equals(original);
 	}
 
-	// Using wildcards and type variables in properties
-
-	@Property
-	//@Report(Reporting.GENERATED)
-	boolean reverseWithWildcardType(@ForAll List<?> original) {
-		return reverse(reverse(original)).equals(original);
-	}
+	// Using type variables in properties - wildcards also work
 
 	@Property
 	//@Report(Reporting.GENERATED)
