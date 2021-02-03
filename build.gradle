@@ -9,13 +9,13 @@ repositories {
 
 ext {
 	junitJupiterVersion = '5.7.0'
-	jqwikVersion = '1.3.10'
-	assertJVersion = '3.17.2'
+	jqwikVersion = '1.4.0-SNAPSHOT'
+	assertJVersion = '3.19.0'
 }
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_1_8
-	targetCompatibility = JavaVersion.VERSION_1_8
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
 }
 
 compileTestJava {
