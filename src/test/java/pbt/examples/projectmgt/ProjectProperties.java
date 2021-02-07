@@ -42,6 +42,6 @@ class ProjectProperties {
 
 	@Provide
 	Arbitrary<List<User>> members() {
-		return Emails.emails().map(User::new).list().ofMaxSize(50).uniqueElements();
+		return Web.emails().map(User::new).list().ofMaxSize(50).uniqueElements();
 	}
 }
