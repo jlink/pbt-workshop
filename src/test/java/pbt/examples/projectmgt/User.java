@@ -5,7 +5,15 @@ public class User {
 	private final String email;
 
 	public User(String email) {
+		assertValidEmail(email);
 		this.email = email;
+	}
+
+	private void assertValidEmail(String email) {
+		long countAt = email.chars().filter(c -> c == '@').count();
+		if (countAt != 1) {
+			throw new IllegalArgumentException(String.format("Email <%s> should contain exactly one '@' sign", email));
+		}
 	}
 
 	public String getEmail() {
