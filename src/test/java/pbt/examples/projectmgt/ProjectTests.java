@@ -8,7 +8,7 @@ class ProjectTests {
 
 	@Example
 	void can_add_many_team_members_to_a_project() {
-		Project project = new Project("Mein großes Projekt");
+		Project project = new Project("My big project");
 
 		var alex = new User("alex@example.com");
 		var kim = new User("kim@example.com");
