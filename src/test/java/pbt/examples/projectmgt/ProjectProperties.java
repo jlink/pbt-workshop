@@ -9,7 +9,7 @@ import net.jqwik.web.api.*;
 
 class ProjectProperties {
 
-	@Property
+	@Property(afterFailure = AfterFailureMode.RANDOM_SEED)
 	void can_add_up_to_10_team_members_to_a_project(
 			@ForAll @NotEmpty @AlphaChars @NumericChars String projectName,
 			@ForAll @Size(max = 10) @UniqueElements List<@Email String> emails
@@ -29,7 +29,8 @@ class ProjectProperties {
 
 	@Property(tries = 100)
 	void can_add_team_members_up_to_specified_limit(@ForAll("members") List<User> users) {
-		Project project = new Project("projectName", users.size());
+		int limit = users.size();
+		Project project = new Project("projectName", limit);
 
 		for (User user : users) {
 			project.addMember(user);

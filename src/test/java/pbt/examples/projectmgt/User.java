@@ -6,7 +6,8 @@ public class User {
 
 	public User(String email) {
 		assertValidEmail(email);
-		this.email = email;
+		// This is actually a bug because local part of email address might be case sensitive
+		this.email = email.toLowerCase();
 	}
 
 	private void assertValidEmail(String email) {

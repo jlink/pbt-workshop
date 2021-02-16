@@ -1,24 +1,23 @@
 package pbt.examples.projectmgt;
 
-import java.awt.*;
 import java.util.*;
 
 public class Project {
 
 	private final String name;
-	private final int maxMembers;
+	private final int membersLimit;
 	private Set<User> members = new HashSet<>();
 
 	public Project(String name) {
 		this(name, 10);
 	}
 
-	public Project(String name, int maxMembers) {
+	public Project(String name, int membersLimit) {
 		if (name.isBlank()) {
 			throw new IllegalArgumentException("Project name must not be blank");
 		}
 		this.name = name;
-		this.maxMembers = maxMembers;
+		this.membersLimit = membersLimit;
 	}
 
 	public String getName() {
@@ -29,8 +28,8 @@ public class Project {
 		if (emailKnown(newMember.getEmail())) {
 			throw new IllegalArgumentException(String.format("Member with email [%s] already exists.", newMember.getEmail()));
 		}
-		if (members.size() >= maxMembers) {
-			throw new IllegalArgumentException(String.format("Maximum number of %s members already reached", maxMembers));
+		if (members.size() >= membersLimit) {
+			throw new IllegalArgumentException(String.format("Maximum number of %s members already reached", membersLimit));
 		}
 		members.add(newMember);
 	}
