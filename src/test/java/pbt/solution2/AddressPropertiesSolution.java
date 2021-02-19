@@ -34,7 +34,7 @@ class AddressPropertiesSolution {
 		Arbitrary<String> street = Arbitraries.strings().alpha().ofMinLength(1).ofMaxLength(20);
 		Arbitrary<String> houseNumber = Arbitraries.strings().withCharRange('0', '9').ofMinLength(1).ofMaxLength(4);
 		Arbitrary<String> addendum = Arbitraries.oneOf(
-				Arbitraries.constant(""),
+				Arbitraries.just(""),
 				Arbitraries.integers().between(1, 9).map(i -> Integer.toString(i))
 		);
 

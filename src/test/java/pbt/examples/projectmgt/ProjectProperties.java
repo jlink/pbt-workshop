@@ -11,7 +11,7 @@ class ProjectProperties {
 
 	@Property(afterFailure = AfterFailureMode.RANDOM_SEED)
 	void can_add_up_to_10_team_members_to_a_project(
-			@ForAll @NotEmpty @AlphaChars @NumericChars String projectName,
+			@ForAll @NotBlank @NumericChars String projectName,
 			@ForAll @Size(max = 10) @UniqueElements List<@Email String> emails
 	) {
 		Project project = new Project(projectName);
