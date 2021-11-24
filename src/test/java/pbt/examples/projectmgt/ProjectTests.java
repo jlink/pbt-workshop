@@ -4,10 +4,11 @@ import net.jqwik.api.*;
 
 import static org.assertj.core.api.Assertions.*;
 
+@Label("In a project")
 class ProjectTests {
 
 	@Example
-	void can_add_many_team_members_to_a_project() {
+	void you_can_add_many_team_members() {
 		Project project = new Project("My big project");
 
 		var alex = new User("alex@example.com");

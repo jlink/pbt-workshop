@@ -7,10 +7,11 @@ import net.jqwik.api.*;
 import net.jqwik.api.constraints.*;
 import net.jqwik.web.api.*;
 
+@Label("In a project")
 class ProjectProperties {
 
 	@Property(afterFailure = AfterFailureMode.RANDOM_SEED)
-	void can_add_up_to_10_team_members_to_a_project(
+	void you_can_add_up_to_10_team_members(
 			@ForAll @NotBlank @AlphaChars String projectName,
 			@ForAll @Size(max = 10) @UniqueElements List<@Email String> emails
 	) {
@@ -28,7 +29,7 @@ class ProjectProperties {
 	}
 
 	@Property(tries = 100)
-	void can_add_team_members_up_to_specified_limit(@ForAll("members") List<User> users) {
+	void you_can_add_team_members_up_to_specified_limit(@ForAll("members") List<User> users) {
 		int limit = users.size();
 		Project project = new Project("projectName", limit);
 
