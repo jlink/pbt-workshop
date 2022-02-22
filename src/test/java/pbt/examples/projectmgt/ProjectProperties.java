@@ -7,10 +7,12 @@ import net.jqwik.api.*;
 import net.jqwik.api.constraints.*;
 import net.jqwik.web.api.*;
 
+import static org.assertj.core.api.Assertions.*;
+
 @Label("In a project")
 class ProjectProperties {
 
-	@Property(afterFailure = AfterFailureMode.RANDOM_SEED)
+	@Property
 	void you_can_add_up_to_10_team_members(
 			@ForAll @NotBlank @AlphaChars String projectName,
 			@ForAll @Size(max = 10) @UniqueElements List<@Email String> emails
@@ -24,7 +26,7 @@ class ProjectProperties {
 		}
 
 		for (User user : users) {
-			project.isMember(user);
+			assertThat(project.isMember(user)).isTrue();
 		}
 	}
 
@@ -38,7 +40,7 @@ class ProjectProperties {
 		}
 
 		for (User user : users) {
-			project.isMember(user);
+			assertThat(project.isMember(user)).isTrue();
 		}
 	}
 
