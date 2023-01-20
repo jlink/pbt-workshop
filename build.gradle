@@ -8,9 +8,9 @@ repositories {
 }
 
 ext {
-	junitJupiterVersion = '5.8.2'
-	jqwikVersion = '1.6.4'
-	assertJVersion = '3.22.0'
+	junitJupiterVersion = '5.9.2'
+	jqwikVersion = '1.7.2'
+	assertJVersion = '3.24.1'
 }
 
 java {
@@ -50,5 +50,5 @@ dependencies {
 }
 
 wrapper {
-	gradleVersion = '7.4'
+	gradleVersion = '7.6'
 }
