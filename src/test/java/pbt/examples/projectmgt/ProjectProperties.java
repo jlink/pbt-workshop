@@ -9,7 +9,6 @@ import net.jqwik.web.api.*;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Label("In a project")
 class ProjectProperties {
 
 	@Property
