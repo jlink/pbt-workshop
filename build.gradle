@@ -9,13 +9,13 @@ repositories {
 
 ext {
 	junitJupiterVersion = '5.9.2'
-	jqwikVersion = '1.7.2'
+	jqwikVersion = '1.7.3'
 	assertJVersion = '3.24.1'
 }
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_11
-	targetCompatibility = JavaVersion.VERSION_11
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 compileTestJava {
@@ -45,10 +45,10 @@ dependencies {
 	testImplementation("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
 
 	// For oracle tests in solution 3
-	testImplementation("org.apache.commons:commons-csv:1.8")
+	testImplementation('org.apache.commons:commons-csv:1.10.0')
 
 }
 
 wrapper {
-	gradleVersion = '7.6'
+	gradleVersion = '8.0.2'
 }
