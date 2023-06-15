@@ -4,11 +4,11 @@ import net.jqwik.api.*;
 
 class IntegratedShrinkingExamples {
 
-	@Property
-	@Report(Reporting.FALSIFIED)
+	// @Report(Reporting.FALSIFIED)
+	@Property(afterFailure = AfterFailureMode.RANDOM_SEED)
 	boolean shrinkingCanBeComplicated(
-			@ForAll("first") String first,
-			@ForAll("second") String second
+		@ForAll("first") String first,
+		@ForAll("second") String second
 	) {
 		String aString = first + second;
 		return aString.length() < 4 || aString.length() > 5;
