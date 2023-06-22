@@ -18,7 +18,7 @@ class ProjectProperties {
 	) {
 		Project project = new Project(projectName);
 
-		List<User> users = emails.stream().map(User::new).collect(Collectors.toList());
+		List<User> users = emails.stream().map(User::new).toList();
 
 		for (User user : users) {
 			project.addMember(user);

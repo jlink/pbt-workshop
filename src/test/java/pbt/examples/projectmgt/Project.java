@@ -25,8 +25,8 @@ public class Project {
 	}
 
 	public void addMember(User newMember) {
-		if (emailKnown(newMember.getEmail())) {
-			throw new IllegalArgumentException(String.format("Member with email [%s] already exists.", newMember.getEmail()));
+		if (emailKnown(newMember.email())) {
+			throw new IllegalArgumentException(String.format("Member with email [%s] already exists.", newMember.email()));
 		}
 		if (members.size() >= membersLimit) {
 			throw new IllegalArgumentException(String.format("Maximum number of %s members already reached", membersLimit));
@@ -39,6 +39,6 @@ public class Project {
 	}
 
 	private boolean emailKnown(String email) {
-		return members.stream().anyMatch(m -> m.getEmail().equals(email));
+		return members.stream().anyMatch(m -> m.email().equals(email));
 	}
 }

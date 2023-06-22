@@ -11,20 +11,19 @@ import net.jqwik.api.*;
 import net.jqwik.api.arbitraries.*;
 import net.jqwik.api.constraints.*;
 
-import static java.util.Arrays.*;
 import static org.assertj.core.api.Assertions.*;
 
 @Group
 class CSVLineParsingPropertiesSolution {
 
 	private final String ALLOWED_CHARACTERS =
-			"ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-					"abcdefghijklmnopqrstuvwxyz" +
-					"0123456789" +
-					" !\"#$%&'()*+,-./" +
-					":;<=>?@" +
-					"[\\]^_`" +
-					"{|}~";
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+			"abcdefghijklmnopqrstuvwxyz" +
+			"0123456789" +
+			" !\"#$%&'()*+,-./" +
+			":;<=>?@" +
+			"[\\]^_`" +
+			"{|}~";
 
 	@Group
 	class line_without_separator_returns_single_field {
@@ -71,10 +70,10 @@ class CSVLineParsingPropertiesSolution {
 			assertThat(line.fields()).isEqualTo(fields);
 		}
 
+		// Extracted after finding bug with property
 		@Example
-			// Extracted after finding bug with property
 		void empty_quoted_field_with_follower() {
-			List<String> fields = asList("", "value");
+			List<String> fields = List.of("", "value");
 			String parseLine = csvLineFromFields(fields);
 			CSVLine line = CSVLineParser.parse(parseLine);
 			assertThat(line.fields()).containsExactly("", "value");
@@ -82,7 +81,7 @@ class CSVLineParsingPropertiesSolution {
 
 		@Example
 		void quote_in_second_field() {
-			List<String> fields = asList("A", "\"");
+			List<String> fields = List.of("A", "\"");
 			String parseLine = csvLineFromFields(fields);
 			CSVLine line = CSVLineParser.parse(parseLine);
 			assertThat(line.fields()).containsExactly("A", "\"");
@@ -145,7 +144,9 @@ class CSVLineParsingPropertiesSolution {
 		}
 
 		private CSVRecord parseWithApacheCommons(String parseLine) throws IOException {
-			CSVParser commonsParser = CSVFormat.newFormat(',').withQuote('"').parse(new StringReader(parseLine));
+			CSVParser commonsParser = CSVFormat.newFormat(',')
+											   .builder().setQuote('"').build()
+											   .parse(new StringReader(parseLine));
 			return commonsParser.iterator().next();
 		}
 
@@ -156,12 +157,11 @@ class CSVLineParsingPropertiesSolution {
 		return Arbitraries.strings().withChars(ALLOWED_CHARACTERS.toCharArray());
 	}
 
-
 	@Provide
 	Arbitrary<String> unquotedFieldWithoutSeparator() {
 		return fieldValue()
-					   .map(this::removeSeparator)
-					   .filter(field -> !field.startsWith("\""));
+				   .map(this::removeSeparator)
+				   .filter(field -> !field.startsWith("\""));
 	}
 
 	@Provide
@@ -172,9 +172,9 @@ class CSVLineParsingPropertiesSolution {
 	@Provide
 	Arbitrary<List<String>> fieldsWithoutSeparatorAndLeadingQuote() {
 		return unquotedFieldWithoutSeparator()
-				.map(String::trim)
-				.filter(f -> !f.startsWith("\""))
-				.list().ofMinSize(2).ofMaxSize(100);
+				   .map(String::trim)
+				   .filter(f -> !f.startsWith("\""))
+				   .list().ofMinSize(2).ofMaxSize(100);
 	}
 
 	@Provide
