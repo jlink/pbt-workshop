@@ -7,20 +7,35 @@ import net.jqwik.api.stateful.*;
 
 class MyStackProperties {
 
-	@Property(tries = 10)
-	void checkMyStackMachine(@ForAll("sequences") ActionSequence<MyStringStack> sequence) {
-		Invariant<MyStringStack> sizeNeverNegative = stack -> {
-			Assertions.assertThat(stack.size()).isGreaterThanOrEqualTo(0);
-		};
-
-		sequence
-				.withInvariant(sizeNeverNegative)
-				.run(new MyStringStack());
+	@Property
+	void checkMyStack(@ForAll("sequences") ActionSequence<MyStringStack> sequence) {
+		sequence.run(new MyStringStack());
 	}
 
 	@Provide
 	Arbitrary<ActionSequence<MyStringStack>> sequences() {
 		return Arbitraries.sequences(MyStringStackActions.actions());
+	}
+
+
+
+
+
+
+
+
+
+
+
+	@Property
+	void checkMyStackWithInvariant(@ForAll("sequences") ActionSequence<MyStringStack> sequence) {
+		Invariant<MyStringStack> sizeNeverNegative = stack -> {
+			Assertions.assertThat(stack.size()).isGreaterThanOrEqualTo(0);
+		};
+
+		sequence
+			.withInvariant(sizeNeverNegative)
+			.run(new MyStringStack());
 	}
 
 	@Property
