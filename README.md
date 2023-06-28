@@ -16,15 +16,26 @@ Exercises and Solutions for Workshop on Property-based Testing with Java
 gradlew.bat test
 ```
 
-## Run test always and with reports
+## Run all tests always (even when nothing has changed)
 
 ```
-./gradlew clean test --info
+./gradlew cleanTest test
 ```
 
 ## Run specific test container
 
 ```
-./gradlew clean test --info --tests *.CircularBufferProperties
+./gradlew cleanTest test --tests "*.CircularBufferProperties"
 ```
 
+## Run specific test package
+
+```
+./gradlew cleanTest test --tests "pbt.examples.reverse.*"
+```
+
+
+# jqwik Reference Material
+
+- [jqwik cheatsheet](https://johanneslink.net/jqwik-cheatsheet.html)
+- [jqwik user guide](https://jqwik.net/docs/current/user-guide.html)
