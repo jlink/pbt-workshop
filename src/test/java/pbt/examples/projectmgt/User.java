@@ -4,7 +4,7 @@ public record User(String email) {
 
 	public User(String email) {
 		assertValidEmail(email);
-		// This is actually a bug because local part of email address might be case sensitive
+		// This is actually a bug because local part of email address might be case-sensitive
 		this.email = email.toLowerCase();
 	}
 
